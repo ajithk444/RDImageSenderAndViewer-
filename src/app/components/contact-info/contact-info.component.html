@@ -1,0 +1,11 @@
+<div *ngIf="userReceived">
+  <div *ngIf="isAdmin; then admin_contact else doctor_contact"></div>
+</div>
+
+<ng-template #admin_contact>
+  <div>Aca se muestra el contacto a la central y guía de trabajo del <strong>adminsitrador</strong></div>
+</ng-template>
+
+<ng-template #doctor_contact>
+  <div>Aca se muestra el contacto a la central y guía de trabajo del <strong>médico</strong></div>
+</ng-template>

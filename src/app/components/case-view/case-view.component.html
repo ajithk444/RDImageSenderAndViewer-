@@ -1,0 +1,94 @@
+<div *ngIf="itemReceived">
+  <div class="row">
+    <div class="col s8">
+      <div class="card blue-grey darken-1" style="height: 800px">
+        <div class="card-content white-text">
+          <span class="card-title">Id del caso: {{caseId}}</span>
+          <strong>
+            <u>Información del paciente:</u>
+          </strong>
+          <ul class="collection black-text">
+            <li class="collection-item">Sexo del paciente: {{patientSex}}</li>
+            <li class="collection-item">Tipo de sangre del paciente: {{patientBloodType}}</li>
+            <li class="collection-item">Raza del paciente: {{patientRace}}</li>
+          </ul>
+          <div class="tab">
+            <button class="tablinks" (onclick)="changeEyeImage('OIM')">OI. Enf. Mácula</button>
+            <button class="tablinks" (onclick)="changeEyeImage('OIDO')">OI. Enf. Disco Óptico</button>
+            <button class="tablinks" (onclick)="changeEyeImage('ODM')">OD. Enf. Mácula</button>
+            <button class="tablinks" (onclick)="changeEyeImage('ODDO')">OD. Enf. Disco Óptico</button>
+          </div>
+          <div class="card-image" id="img1">
+            <img src="{{item.imageUrl}}" height="500px">
+            <span class="card-title">Ojo derecho enfoque en mácula</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s4">
+      <div class="card" style="height: 800px">
+        <div class="card-content">
+          <span class="card-title">
+            <u>Aquí llene su diagnóstico:</u>
+          </span>
+          <br>
+          <form (ngSubmit)="onSubmit()">
+            <span>
+              <u>Comentarios:</u>
+            </span>
+            <br>
+            <br>
+            <textarea name="" maxlength="200" style="resize: none; height: 150px;" [(ngModel)]="item.commentary" name="commentary">{{item.commentary}}</textarea>
+            <p>Máximo número de caracteres: 200</p>
+            <br>
+            <hr>
+            <br>
+            <span>
+              <u>Pronóstico:</u>
+            </span>
+            <br>
+            <br>
+            <div style="border: 1px solid grey;">
+              <select class="browser-default" name="doctorId" [(ngModel)]="item.prognosis">
+                <option value="" disabled selected>Da tu veredicto:</option>
+                <option value="0">Si tiene RD</option>
+                <option value="1">No tiene RD</option>
+                <option value="2">Falta evaluar más</option>
+              </select>
+            </div>
+            <br>
+            <div *ngIf="item.prognosis==='0'">
+              <span>
+                <u>Intensidad de RD:</u>
+              </span>
+              <br>
+              <br>
+              <div>
+                <input name="group1" type="radio" id="intensity0" value="0" [(ngModel)]="item.intensity" />
+                <label for="intensity0">0</label>
+              </div>
+              <div>
+                <input name="group1" type="radio" id="intensity1" value="1" [(ngModel)]="item.intensity" />
+                <label for="intensity1">1</label>
+              </div>
+              <div>
+                <input name="group1" type="radio" id="intensity2" value="2" [(ngModel)]="item.intensity" />
+                <label for="intensity2">2</label>
+              </div>
+              <div>
+                <input name="group1" type="radio" id="intensity3" value="3" [(ngModel)]="item.intensity" />
+                <label for="intensity3">3</label>
+              </div>
+              <div>
+                <input name="group1" type="radio" id="intensity4" value="4" [(ngModel)]="item.intensity" />
+                <label for="intensity4">4</label>
+              </div>
+            </div>
+            <input type="submit" value="Guardar" class="btn" id="saveBtn">
+            <a class="btn red darken-3" id="cancelBtn" (click)="onCancel()">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

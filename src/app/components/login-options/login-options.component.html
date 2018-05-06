@@ -1,0 +1,35 @@
+<br>
+<div class="card">
+  <div class="card-content grey lighten-4">
+    <span class="card-title">Ingresar como administrador</span>
+    <form (ngSubmit)="onLoginAsAdmin()">
+      <div class="row">
+        <div class="input-field col s12">
+          <label>Ingresar código de registro:</label>
+          <br>
+          <input type="password" placeholder="Código..." [(ngModel)]="adminInputCode" name="a">
+        </div>
+        <input type="submit" value="Login como administrador" class="btn grey darken-2 hoverable">
+      </div>
+    </form>
+  </div>
+</div>
+
+<br>
+<br>
+
+<div class="card">
+  <div class="card-content grey lighten-4">
+    <span class="card-title">Ingresar como médico</span>
+    <form (ngSubmit)="onLoginAsDoctor()">
+      <div class="row">
+        <div class="input-field col s12">
+          <label>Ingresar código de registro:</label>
+          <br>
+          <input type="password" placeholder="Código..." [(ngModel)]="doctorInputCode" name="b">
+        </div>
+        <input type="submit" value="Login como médico" class="btn light-green darken-4 hoverable">
+      </div>
+    </form>
+  </div>
+</div>

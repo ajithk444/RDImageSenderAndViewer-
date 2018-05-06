@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Añadir un nuevo caso</span>
+    <form (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="input-field">
+          <label>Título del caso</label>
+          <br>
+          <input type="text" placeholder="Escribe el título del caso..." [(ngModel)]="item.title" name="title">
+        </div>
+        <div class="input-field">
+          <label>Fecha</label>
+          <br>
+          <input type="date" [(ngModel)]="item.date" name="date">
+        </div>
+        <label>Asignación de caso a médico: </label>
+        <div style="border: 1px solid grey;">
+          <select class="browser-default" [(ngModel)]="item.doctorId" name="doctorId">
+            <option value="" disabled selected>Escoge el médico disponible entre las opciones</option>
+            <option *ngFor="let doctor of registeredDoctors" value="{{doctor.uid}}">
+              {{doctor.displayName}}
+            </option>
+          </select>
+        </div>
+        <br>
+        <br>
+        <input type="submit" value="submit" class="btn">
+        <input type="file" value="upload file" (change)="fileSelected($event)">
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-items></app-items>
+<app-user-detail></app-user-detail>

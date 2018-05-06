@@ -1,0 +1,12 @@
+<nav>
+  <div class="nav-wrapper red darken-4">
+    <a href="/" class = "brand-logo center">RD Telemedicina Perú</a>
+    <ul class="right hide-on-med-and-down">
+        <!-- <li *ngIf="!authenticated"><a (click)="login()">Login</a></li> -->
+        <li *ngIf="authenticated"><a routerLink="/contact">Contacto y guia</a></li>
+        <li *ngIf="authenticated && isAdmin"><a routerLink="/items">Agregar casos</a></li>
+        <li *ngIf="authenticated && !isAdmin"><a routerLink="/cases">Visualizar casos</a></li>
+        <li *ngIf="authenticated"><a (click)="logout()" routerLink="/">Logout</a></li>
+    </ul>
+  </div>
+</nav>

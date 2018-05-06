@@ -1,0 +1,37 @@
+<div *ngIf="items else noItems">
+  <ul *ngFor="let item of items" class="collection">
+    <li class="collection-item">
+      <div>
+        <strong>Título: </strong>{{item.title}}
+      </div>
+      <div>
+        <strong>Fecha: </strong>{{item.date}}
+      </div>
+      <div>
+        <strong>Comentarios: </strong>{{item.commentary}}
+      </div>
+
+      <!-- <div *ngIf="item.imageUrl">
+        <br>
+        <img src="{{item.imageUrl}}" alt="Loading..." width="100px" height="100px">
+      </div> -->
+      <br>
+      <div *ngIf="item.diagnosed else notDiagnosed">
+          <i id="checkIcon" class="material-icons green">check_box</i>
+          <br><br>
+          <a [routerLink]="['/case_view']" [queryParams]="{caseId: item.id}" class="btn blue darken-4">Editar Diagnostico</a>
+      </div>
+      <ng-template #notDiagnosed>
+        <div>
+          <a [routerLink]="['/case_view']" [queryParams]="{caseId: item.id}" class="btn deep-purple darken-4">Diagnosticar</a>
+        </div>
+      </ng-template>
+
+    </li>
+  </ul>
+</div>
+
+<ng-template #noItems>
+  <hr>
+  <h5>No tienes ningún caso asignado.</h5>
+</ng-template>

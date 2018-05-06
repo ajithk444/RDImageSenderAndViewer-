@@ -1,0 +1,13 @@
+a.secondary-content {
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+#trashIcon {
+    margin-right: 0px;
+}
+
+#checkIcon {
+    margin-left: 20px;
+    font-size: 60px;
+}

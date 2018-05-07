@@ -58,7 +58,7 @@ export class ItemService {
     return this.allItemsCollection.doc(itemId).valueChanges();
   }
 
-  addItemOfUser(item: Item, userId: string, itemFile) {
+  addItem(item: Item, userId: string, itemFile) {
     const id = this.afs.createId();
     const title = item.title;
     const date = item.date;
@@ -72,7 +72,7 @@ export class ItemService {
         this.addItemFromConsts(id, title, date, imageAddress, doctorId, url, userId, itemFile, doctorName);
       });
     } else {
-      this.afs.collection('all-items').add(item);
+      this.afs.collection('all-items').doc(id).set(item);
     }
   }
 
@@ -84,17 +84,17 @@ export class ItemService {
     this.addedItem.doctorName = doctorName;
     this.addedItem.imageAddress = imageAddress;
     this.addedItem.imageUrl = url;
-    this.afs.collection('all-items').add(this.addedItem);
+    this.afs.collection('all-items').doc(id).set(this.addedItem);
   }
 
-  deleteItemOfUser(item: Item, userId: string) {
+  deleteItem(item: Item) {
     if (item.imageAddress) {
       this.storage.ref(`items-images/${item.id}/image`).delete();
     }
     this.allItemsCollection.doc(item.id).delete();
   }
 
-  updateItemOfUser(item: Item, itemId: string) {
+  updateItemWithDiagnosis(item: Item, itemId: string) {
     this.allItemsCollection.doc(itemId).update(item);
   }
 

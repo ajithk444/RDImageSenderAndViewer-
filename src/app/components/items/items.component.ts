@@ -40,7 +40,7 @@ export class ItemsComponent implements OnInit {
   }
 
   deleteItem(event, item) {
-    this.itemService.deleteItemOfUser(item, this.user.uid);
+    this.itemService.deleteItem(item);
   }
 
   editItem(event, item) {
@@ -52,10 +52,10 @@ export class ItemsComponent implements OnInit {
     }
   }
 
-  updateItem(item) {
-    this.itemService.updateItemOfUser(item, this.user.uid);
-    this.clearState();
-  }
+  // updateItem(item) {
+  //   this.itemService.updateItemOfUser(item, this.user.uid);
+  //   this.clearState();
+  // }
 
   clearState() {
     this.editState = false;

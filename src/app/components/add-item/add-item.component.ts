@@ -51,7 +51,7 @@ export class AddItemComponent implements OnInit {
     if (this.areAllItemsFieldsFilled) {
       this.item.doctorName = this.registeredDoctors.find(i => i.uid === this.item.doctorId).displayName;
       this.item.adminId = this.user.uid;
-      this.itemService.addItemOfUser(this.item, this.user.uid, this.file);
+      this.itemService.addItem(this.item, this.user.uid, this.file);
       this.item.title = '';
       this.item.date = '';
       this.item.commentary = '';

@@ -48,7 +48,7 @@ export class CaseViewComponent implements OnInit {
     console.log('Llego aca');
     console.log(this.item.commentary, this.item.intensity);
     this.item.diagnosed = true;
-    this.itemService.updateItemOfUser(this.item, this.caseId);
+    this.itemService.updateItemWithDiagnosis(this.item, this.caseId);
     this.location.back();
   }
 

@@ -21,6 +21,8 @@ export class ItemsComponent implements OnInit {
   profileUrl: Observable<string | null>;
   imgSrc: string;
 
+  diagnosisArray: string[] = ['Si tiene RD', 'No tiene RD', 'Falta evaluar más'];
+
   constructor(private itemService: ItemService,
     private authService: AuthService,
     private storage: AngularFireStorage) {
@@ -60,6 +62,10 @@ export class ItemsComponent implements OnInit {
   clearState() {
     this.editState = false;
     this.itemToEdit = null;
+  }
+
+  onViewDiagnosisClicked(item: Item) {
+    item.viewDiagnosis = !item.viewDiagnosis;
   }
 
 }

@@ -60,31 +60,19 @@ export class ItemService {
 
   addItem(item: Item, userId: string, itemFile) {
     const id = this.afs.createId();
-    const title = item.title;
-    const date = item.date;
-    const adminId = item.adminId;
-    const doctorId = item.doctorId;
-    const doctorName = item.doctorName;
+    this.addedItem = Object.assign({}, item);         
+    this.addedItem.viewDiagnosis = false;     
     if (itemFile != null) {
       const imageAddress = `items-images/${id}/image`;
       const task = this.storage.upload(imageAddress, itemFile);
       task.downloadURL().subscribe(url => {
-        this.addItemFromConsts(id, title, date, imageAddress, doctorId, url, userId, itemFile, doctorName);
+        this.addedItem.imageUrl = url;
+        this.addedItem.imageAddress = imageAddress;
+        this.afs.collection('all-items').doc(id).set(this.addedItem);
       });
     } else {
       this.afs.collection('all-items').doc(id).set(item);
     }
-  }
-
-  addItemFromConsts(id, title, date, imageAddress, doctorId, url, adminId, itemFile, doctorName) {
-    this.addedItem.title = title;
-    this.addedItem.date = date;
-    this.addedItem.adminId = adminId;
-    this.addedItem.doctorId = doctorId;
-    this.addedItem.doctorName = doctorName;
-    this.addedItem.imageAddress = imageAddress;
-    this.addedItem.imageUrl = url;
-    this.afs.collection('all-items').doc(id).set(this.addedItem);
   }
 
   deleteItem(item: Item) {

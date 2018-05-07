@@ -26,8 +26,22 @@
       </div>
 
       <div *ngIf="item.diagnosed">
+        <br>
+        <i id="checkIcon" class="material-icons green">check_box</i>
+        <div *ngIf="!item.viewDiagnosis">
           <br>
-          <i id="checkIcon" class="material-icons green">check_box</i>
+          <a class="btn grey" (click)="onViewDiagnosisClicked(item)">Ver diagnóstico</a>
+        </div>
+      </div>
+      <div *ngIf="item.viewDiagnosis">
+        <br>
+        <div>
+          <strong>Diagnóstico: </strong>{{diagnosisArray[item.prognosis]}}
+        </div>
+        <div *ngIf="item.prognosis=='0'">
+          <strong>Intensidad: </strong>{{item.intensity}}
+        </div>
+        <a class="btn grey" (click)="onViewDiagnosisClicked(item)">Esconder diagnóstico</a>
       </div>
 
       <!-- <div *ngIf="editState && itemToEdit.id == item.id">

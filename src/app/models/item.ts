@@ -11,6 +11,7 @@ export interface Item {
   doctorName?: string;
   imageAddress?: string;
   imageUrl?: string;
+  viewDiagnosis?: boolean;
 }
 
 enum prognosisOptions {

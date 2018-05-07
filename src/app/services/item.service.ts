@@ -1,9 +1,10 @@
 import { AuthService } from './auth.service';
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Item } from '../models/item';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireStorage } from 'angularfire2/storage';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ItemService {
@@ -58,21 +59,20 @@ export class ItemService {
     return this.allItemsCollection.doc(itemId).valueChanges();
   }
 
-  addItem(item: Item, userId: string, itemFile) {
+  addItem(item: Item, userId: string, itemFile): Observable<boolean> {
     const id = this.afs.createId();
-    this.addedItem = Object.assign({}, item);         
-    this.addedItem.viewDiagnosis = false;     
-    if (itemFile != null) {
-      const imageAddress = `items-images/${id}/image`;
-      const task = this.storage.upload(imageAddress, itemFile);
-      task.downloadURL().subscribe(url => {
-        this.addedItem.imageUrl = url;
-        this.addedItem.imageAddress = imageAddress;
-        this.afs.collection('all-items').doc(id).set(this.addedItem);
-      });
-    } else {
-      this.afs.collection('all-items').doc(id).set(item);
-    }
+    this.addedItem = Object.assign({}, item);
+    this.addedItem.viewDiagnosis = false;
+    const subject = new Subject<boolean>();
+    const imageAddress = `items-images/${id}/image`;
+    const task = this.storage.upload(imageAddress, itemFile);
+    task.downloadURL().subscribe(url => {
+      this.addedItem.imageUrl = url;
+      this.addedItem.imageAddress = imageAddress;
+      this.afs.collection('all-items').doc(id).set(this.addedItem);
+      subject.next(true);
+    });
+    return subject.asObservable();
   }
 
   deleteItem(item: Item) {

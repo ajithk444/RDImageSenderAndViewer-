@@ -1,5 +1,5 @@
 import { RegisteredDoctorsService } from './../../services/registered-doctors.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
 import { AuthService } from '../../services/auth.service';
@@ -26,6 +26,8 @@ export class AddItemComponent implements OnInit {
     imageUrl: ''
   };
 
+  showLoadingBar = false;
+
   file;
 
   constructor(private itemService: ItemService, private authService: AuthService, private storage: AngularFireStorage,
@@ -51,16 +53,25 @@ export class AddItemComponent implements OnInit {
     if (this.areAllItemsFieldsFilled) {
       this.item.doctorName = this.registeredDoctors.find(i => i.uid === this.item.doctorId).displayName;
       this.item.adminId = this.user.uid;
-      this.itemService.addItem(this.item, this.user.uid, this.file);
-      this.item.title = '';
-      this.item.date = '';
-      this.item.commentary = '';
-      this.item.doctorId = '';
+      this.itemService.addItem(this.item, this.user.uid, this.file).subscribe(value => {
+        if (value) {
+          this.showLoadingBar = false;
+        }
+      });
+      this.showLoadingBar = true;
+      this.clearItem();
     }
   }
 
+  clearItem() {    
+    this.item.title = '';
+    this.item.date = '';
+    this.item.commentary = '';
+    this.item.doctorId = '';
+  }
+
   areAllItemsFieldsFilled() {
-    return this.item.title !== '' && this.item.date !== '' && this.item.doctorId !== '';
+    return this.item.title !== '' && this.item.date !== '' && this.item.doctorId !== '' && this.file;
   }
 
   fileSelected(event) {

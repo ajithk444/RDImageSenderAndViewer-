@@ -26,6 +26,13 @@
         <br>
         <input type="submit" value="submit" class="btn">
         <input type="file" value="upload file" (change)="fileSelected($event)">
+        <div *ngIf="showLoadingBar">
+          <br><br>
+          Uploading...
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
       </div>
     </form>
   </div>

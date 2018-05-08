@@ -1,5 +1,17 @@
-<div id="dwv">
-  <div class="layerContainer">
-      <canvas class="imageLayer"></canvas>
+<div class="card">
+  <div class="card-content center-align">
+    <div id="dwv">
+      <div class="button-row">
+        <button color="primary" value="Scroll" (click)="onClick($event)">Scroll</button>
+        <button color="primary" value="WindowLevel" (click)="onClick($event)">WindowLevel</button>
+        <button color="primary" value="ZoomAndPan" (click)="onClick($event)">ZoomAndPan</button>
+      </div>
+      <br>
+      <div class="layerContainer">
+        <canvas class="imageLayer"></canvas>
+      </div>
+    </div>
+    <br>
+    <a class="btn grey"(click)="goBack()">Regresar</a>
   </div>
 </div>

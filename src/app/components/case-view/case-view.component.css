@@ -1,13 +1,19 @@
 #saveBtn {
     position: absolute;
-    bottom: 30px;
-    left: 50px;
+    bottom: 80px;
+    width: 175px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 #cancelBtn {
     position: absolute;
     bottom: 30px;
-    right: 50px;
+    width: 175px;    
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 /* Style the tab */

@@ -13,10 +13,10 @@
             <li class="collection-item">Raza del paciente: {{patientRace}}</li>
           </ul>
           <div class="tab">
-            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OI. Enf. Mácula</button>
-            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OI. Enf. Disco Óptico</button>
-            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OD. Enf. Mácula</button>
-            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OD. Enf. Disco Óptico</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}">OI. Enf. Mácula</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}">OI. Enf. Disco Óptico</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}">OD. Enf. Mácula</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}">OD. Enf. Disco Óptico</button>
           </div>
           <br>
           <div>
@@ -87,8 +87,12 @@
                 <label for="intensity4">4</label>
               </div>
             </div>
-            <input type="submit" value="Guardar" class="btn" id="saveBtn">
-            <a class="btn red darken-3" id="cancelBtn" (click)="onCancel()">Cancelar</a>
+            <div>
+              <input type="submit" value="Guardar" class="btn" id="saveBtn">
+              <br>
+              <br>
+              <a class="btn red darken-3" id="cancelBtn" (click)="onCancel()">Cancelar</a>
+            </div>
           </form>
         </div>
       </div>

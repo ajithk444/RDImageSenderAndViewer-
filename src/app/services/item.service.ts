@@ -64,7 +64,7 @@ export class ItemService {
     this.addedItem = Object.assign({}, item);
     this.addedItem.viewDiagnosis = false;
     const subject = new Subject<boolean>();
-    const imageAddress = `items-images/${id}/image`;
+    const imageAddress = `items-images/${id}/image.dcm`;
     const task = this.storage.upload(imageAddress, itemFile);
     task.downloadURL().subscribe(url => {
       this.addedItem.imageUrl = url;
@@ -77,7 +77,7 @@ export class ItemService {
 
   deleteItem(item: Item) {
     if (item.imageAddress) {
-      this.storage.ref(`items-images/${item.id}/image`).delete();
+      this.storage.ref(`items-images/${item.id}/image.dcm`).delete();
     }
     this.allItemsCollection.doc(item.id).delete();
   }

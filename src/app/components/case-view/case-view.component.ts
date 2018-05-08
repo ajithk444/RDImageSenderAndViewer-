@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../models/item';
 import { Location } from '@angular/common';
-import * as dwv from 'dwv';
-// declare var dwv: any;
+
+declare var dwv: any;
 
 @Component({
   selector: 'app-case-view',
@@ -35,18 +35,6 @@ export class CaseViewComponent implements OnInit {
         this.itemReceived = true;
       }
     });
-    // base function to get elements
-    dwv.gui.getElement = dwv.gui.base.getElement;
-    dwv.gui.displayProgress = function (percent) { };
-
-    // create the dwv app
-    const app = new dwv.App();
-    // initialise with the id of the container div
-    app.init({
-      'containerDivId': 'dwv'
-    });
-    // load dicom data
-    app.loadURLs(['https://raw.githubusercontent.com/ivmartel/dwv/master/tests/data/bbmri-53323851.dcm']);
   }
 
   initializePatientInfo() {

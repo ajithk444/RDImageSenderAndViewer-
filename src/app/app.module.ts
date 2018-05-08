@@ -22,6 +22,7 @@ import { ContactInfoComponent } from './components/contact-info/contact-info.com
 import { CasesComponent } from './components/cases/cases.component';
 import { CaseViewComponent } from './components/case-view/case-view.component';
 import { RegisteredDoctorsService } from './services/registered-doctors.service';
+import { DicomViewerComponent } from './components/dicom-viewer/dicom-viewer.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { RegisteredDoctorsService } from './services/registered-doctors.service'
     LoginOptionsComponent,
     ContactInfoComponent,
     CasesComponent,
-    CaseViewComponent
+    CaseViewComponent,
+    DicomViewerComponent
   ],
   imports: [
     BrowserModule,

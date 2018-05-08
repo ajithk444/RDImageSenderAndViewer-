@@ -13,14 +13,17 @@
             <li class="collection-item">Raza del paciente: {{patientRace}}</li>
           </ul>
           <div class="tab">
-            <button class="tablinks" (onclick)="changeEyeImage('OIM')">OI. Enf. Mácula</button>
-            <button class="tablinks" (onclick)="changeEyeImage('OIDO')">OI. Enf. Disco Óptico</button>
-            <button class="tablinks" (onclick)="changeEyeImage('ODM')">OD. Enf. Mácula</button>
-            <button class="tablinks" (onclick)="changeEyeImage('ODDO')">OD. Enf. Disco Óptico</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OI. Enf. Mácula</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OI. Enf. Disco Óptico</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OD. Enf. Mácula</button>
+            <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}" >OD. Enf. Disco Óptico</button>
           </div>
-          <div class="card-image" id="img1">
-            <img src="{{item.imageUrl}}" height="500px">
-            <span class="card-title">Ojo derecho enfoque en mácula</span>
+          <br>
+          <div>
+            <span>Has click en los tabs para ver las imágenes en nuestro DICOM viewer</span>
+            <div>
+              En estos tendrás la opción de...
+            </div>
           </div>
         </div>
       </div>
@@ -90,10 +93,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="dwv">
-  <div class="layerContainer">
-      <canvas class="imageLayer"></canvas>
   </div>
 </div>

@@ -8,9 +8,14 @@
             <u>Información del paciente:</u>
           </strong>
           <ul class="collection black-text">
-            <li class="collection-item">Sexo del paciente: {{patientSex}}</li>
+            <!-- <li class="collection-item">Sexo del paciente: {{patientSex}}</li>
             <li class="collection-item">Tipo de sangre del paciente: {{patientBloodType}}</li>
-            <li class="collection-item">Raza del paciente: {{patientRace}}</li>
+            <li class="collection-item">Raza del paciente: {{patientRace}}</li> -->
+            <li class="collection-item">
+              <div id="dwv">
+                <div id="tags"></div>
+              </div>
+            </li>
           </ul>
           <div class="tab">
             <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageUrl}">OI. Enf. Mácula</button>

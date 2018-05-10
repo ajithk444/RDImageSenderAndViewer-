@@ -33,20 +33,13 @@ export class CaseViewComponent implements OnInit {
         this.item = item;
         this.itemReceived = true;
         this.initializePatientInfo();
-        let newItem = {} as Item;
-        const secondItem = {} as Item;
-        newItem = secondItem;
       }
     });
   }
 
-  hello() {
-    console.log('hello');
-  }
-
   initializePatientInfo() {
 
-    const onload  = () => {
+    const onload = () => {
       // setup the dicom parser
       const dicomParser = new dwv.dicom.DicomParser();
       // parse the buffer
@@ -94,41 +87,20 @@ export class CaseViewComponent implements OnInit {
     request.send(null);
   }
 
-getData() {
-  const hello = function() {
+  onSubmit() {
+    console.log('Llego aca');
+    console.log(this.item.commentary, this.item.intensity);
+    this.item.diagnosed = true;
+    this.itemService.updateItemWithDiagnosis(this.item, this.caseId);
+    this.location.back();
+  }
 
-  };
-}
+  onCancel() {
+    this.location.back();
+  }
 
-getConvertedDate(dateTag) {
-  console.log(dateTag);
-  return dateTag.substr(6, 7) + '/' + dateTag.substr(4, 5) + dateTag.substr(0, 3);
-}
-
-convertDate = function (dateTag) {
-  console.log(dateTag);
-  return dateTag.substr(6, 7) + '/' + dateTag.substr(4, 5) + dateTag.substr(0, 3);
-};
-
-onSubmit() {
-  console.log('Llego aca');
-  console.log(this.item.commentary, this.item.intensity);
-  this.item.diagnosed = true;
-  this.itemService.updateItemWithDiagnosis(this.item, this.caseId);
-  this.location.back();
-}
-
-onCancel() {
-  // this.location.back();
-  console.log(this.patientSex);
-}
-
-changeEyeImage(focus: string) {
-
-}
-
-onIntensityValueClicked(intensity: string) {
-  console.log(intensity);
-}
+  onIntensityValueClicked(intensity: string) {
+    console.log(intensity);
+  }
 
 }

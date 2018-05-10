@@ -64,46 +64,6 @@ export class DicomViewerComponent implements OnInit {
     });
     // load dicom data 
     this.dwvApp.loadURLs([this.dicomUrl]);
-
-    this.tagsPart();
-  }
-
-  tagsPart() {
-
-    console.log('dicomUrl: ', this.dicomUrl);
-
-    const onload = function () {
-      // setup the dicom parser
-      const dicomParser = new dwv.dicom.DicomParser();
-      // parse the buffer
-      dicomParser.parse(this.response);
-
-      // div to display text
-      const div = document.getElementById('tags');
-
-      // get the raw dicom tags
-      const rawTags = dicomParser.getRawDicomElements();
-      // display the modality
-      div.appendChild(document.createTextNode(
-        'Patient sex: ' + rawTags.x00100040.value[0]
-      ));
-
-      // break line
-      div.appendChild(document.createElement('br'));
-
-      // get the wrapped dicom tags
-      const tags = dicomParser.getDicomElements();
-      // display the modality
-      div.appendChild(document.createTextNode(
-        'Modality (bis): ' + tags.getFromName('PatientSex')
-      ));
-    };
-
-    const request = new XMLHttpRequest();
-    request.open('GET', this.dicomUrl, true);
-    request.responseType = 'arraybuffer';
-    request.onload = onload;
-    request.send(null);
   }
 
   onClick(event) {

@@ -12,6 +12,7 @@ export interface Item {
   imageAddress?: string;
   imageUrl?: string;
   viewDiagnosis?: boolean;
+  imageIndexes?: number[]; // array index --> storage id (0 --> OIEM, 1 --> OIED, 2 --> ODEM, 3 --> ODED)
 }
 
 enum prognosisOptions {

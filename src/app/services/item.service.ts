@@ -5,6 +5,8 @@ import { Item } from '../models/item';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Subject } from 'rxjs/Subject';
+import { Tag } from '../models/tag';
+declare var dwv: any;
 
 @Injectable()
 export class ItemService {
@@ -21,6 +23,11 @@ export class ItemService {
     title: '',
     date: '',
     imageUrl: ''
+  };
+  dicomTags: Tag = {
+    tagsFound: false,
+    laterality: '',
+    seriesDescription: ''
   };
 
   constructor(public afs: AngularFirestore,
@@ -73,6 +80,52 @@ export class ItemService {
       subject.next(true);
     });
     return subject.asObservable();
+  }
+
+  addItemFilesToStorage(item: Item, userId: string, itemFile: File, index: number, id: string): Observable<Tag> {
+    this.addedItem = Object.assign({}, item);
+    const subject = new Subject<Tag>();
+    const imageAddress = `items-dicoms/${id}/${index}/image.dcm`;
+    const task = this.storage.upload(imageAddress, itemFile);
+    task.downloadURL().subscribe(url => {
+      const onload = () => {
+        // setup the dicom parser
+        const dicomParser = new dwv.dicom.DicomParser();
+        // parse the buffer
+        dicomParser.parse(request.response);
+
+        // get the wrapped dicom tags
+        const tags = dicomParser.getDicomElements();
+
+        // console.log('dicomPatientSex: ', tags.getFromName('PatientSex'));
+        // console.log('Laterality: ', tags.getFromName('Laterality'));
+        // console.log('SeriesDescription: ', tags.getFromName('SeriesDescription'));
+        const laterality = String(tags.getFromName('Laterality'));
+        const seriesDescription = String(tags.getFromName('SeriesDescription'));
+        if (laterality != null && laterality !== '' && seriesDescription != null && seriesDescription !== '') {
+          this.dicomTags.tagsFound = true;
+          this.dicomTags.laterality = laterality;
+          this.dicomTags.seriesDescription = seriesDescription;
+        } else {
+          this.dicomTags.tagsFound = false;
+        }
+        
+        subject.next(this.dicomTags);
+      };
+
+      const request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.responseType = 'arraybuffer';
+      request.onload = onload;
+      request.send(null);
+    });
+    return subject.asObservable();
+  }
+
+  addItemToFirestore(item: Item, userId: string, id: string) {
+    this.addedItem = Object.assign({}, item);
+    this.addedItem.viewDiagnosis = false;
+    this.afs.collection('all-items').doc(id).set(this.addedItem);
   }
 
   deleteItem(item: Item) {

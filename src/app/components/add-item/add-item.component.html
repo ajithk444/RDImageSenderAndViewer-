@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-content">
     <span class="card-title">Añadir un nuevo caso</span>
-    <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmitMultipleItems()">
       <div class="row">
         <div class="input-field">
           <label>Título del caso</label>
@@ -24,11 +24,19 @@
         </div>
         <br>
         <br>
+        <div class="file-field input-field">
+          <div class="btn grey">
+            <span>Escoger</span>
+            <input type="file" multiple (change)="fileSelected($event)">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Sube uno o más archivos DICOM">
+          </div>
+        </div>
         <input type="submit" value="submit" class="btn">
-        <input type="file" value="upload file" (change)="fileSelected($event)">
         <div *ngIf="showLoadingBar">
-          <br><br>
-          Uploading...
+          <br>
+          <br> Uploading...
           <div class="progress">
             <div class="indeterminate"></div>
           </div>
@@ -39,4 +47,4 @@
 </div>
 
 <app-items></app-items>
-<app-user-detail></app-user-detail>
+<!-- <app-user-detail></app-user-detail> -->

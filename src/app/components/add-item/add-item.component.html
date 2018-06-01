@@ -34,13 +34,25 @@
           </div>
         </div>
         <input type="submit" value="submit" class="btn">
-        <div *ngIf="showLoadingBar">
+        <div id="checkboxesDiv" class="valign-wrapper" *ngIf="showCheckboxes">
           <br>
-          <br> Uploading...
-          <div class="progress">
-            <div class="indeterminate"></div>
+          <br>
+          <input type="checkbox" class="check" [(ngModel)]="checkboxOIEM" name="OIEM" disabled>
+          <label for="check"  style="margin-right: 40px;">Ojo Izq. Enf. Mácula</label>
+          <input type="checkbox" class="check" [(ngModel)]="checkboxOIED" name="OIED" disabled>
+          <label for="check"  style="margin-right: 40px;">Ojo Izq. Enf. Disco óptico</label>          
+          <input type="checkbox" class="check" [(ngModel)]="checkboxODEM" name="ODEM" disabled>
+          <label for="check"  style="margin-right: 40px;">Ojo Der. Enf. Mácula</label>
+          <input type="checkbox" class="check" [(ngModel)]="checkboxODED" name="ODED" disabled>
+          <label for="check">Ojo Der. Enf. Disco óptico</label>
+          <i class="medium material-icons right" (click)="showCheckboxes = false;" style="cursor: pointer;">close</i>
+        </div>        
+        <div *ngIf="showLoadingBar">
+            <br> Uploading...
+            <div class="progress">
+              <div class="indeterminate"></div>
+            </div>
           </div>
-        </div>
       </div>
     </form>
   </div>

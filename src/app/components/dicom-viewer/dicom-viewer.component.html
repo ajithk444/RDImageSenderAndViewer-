@@ -1,5 +1,11 @@
 <div class="card">
   <div class="card-content center-align">
+    <div *ngIf="showLoadingBar">
+      Cargando imagen...
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
     <div id="dwv">
       <div class="button-row">
         <button color="primary" value="Scroll" (click)="onClick($event)">Scroll</button>
@@ -12,6 +18,6 @@
       </div>
     </div>
     <br>
-    <a class="btn grey"(click)="goBack()">Regresar</a>
+    <a class="btn grey" (click)="goBack()">Regresar</a>
   </div>
 </div>

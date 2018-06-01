@@ -45,6 +45,8 @@ export class DicomViewerComponent implements OnInit {
   dicomUrl: string;
   private dwvApp: any;
 
+  showLoadingBar = true;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private location: Location) { }
@@ -59,16 +61,18 @@ export class DicomViewerComponent implements OnInit {
       'containerDivId': 'dwv',
       'fitToWindow': true,
       'tools': ['Scroll', 'WindowLevel', 'ZoomAndPan'],
-      'shapes': ['Ruler'],
       'isMobile': false
     });
     // load dicom data 
     this.dwvApp.loadURLs([this.dicomUrl]);
+
+    this.dwvApp.addEventListener('load-progress', event => {
+      this.showLoadingBar = false;
+    });
   }
 
   onClick(event) {
     if (this.dwvApp) {
-      console.log('llego acaaaaa');
       this.dwvApp.onChangeTool(event);
     }
   }

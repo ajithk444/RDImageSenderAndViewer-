@@ -22,7 +22,6 @@ export class ItemService {
   addedItem: Item = {
     title: '',
     date: '',
-    imageUrl: ''
   };
   dicomTags: Tag = {
     tagsFound: false,
@@ -97,19 +96,25 @@ export class ItemService {
         // get the wrapped dicom tags
         const tags = dicomParser.getDicomElements();
 
-        // console.log('dicomPatientSex: ', tags.getFromName('PatientSex'));
-        // console.log('Laterality: ', tags.getFromName('Laterality'));
-        // console.log('SeriesDescription: ', tags.getFromName('SeriesDescription'));
         const laterality = String(tags.getFromName('Laterality'));
         const seriesDescription = String(tags.getFromName('SeriesDescription'));
+        const patientSex = String(tags.getFromName('PatientSex'));
+        const patientBirthDate = String(tags.getFromName('PatientBirthDate').substr(6, 2) + '/'
+          + tags.getFromName('PatientBirthDate').substr(4, 2) + '/'
+          + tags.getFromName('PatientBirthDate').substr(0, 4));
+        const ethnicGroup = String(tags.getFromName('EthnicGroup'));
         if (laterality != null && laterality !== '' && seriesDescription != null && seriesDescription !== '') {
           this.dicomTags.tagsFound = true;
           this.dicomTags.laterality = laterality;
           this.dicomTags.seriesDescription = seriesDescription;
+          this.dicomTags.patientSex = patientSex;
+          this.dicomTags.patientBirthDate = patientBirthDate;
+          this.dicomTags.ethnicGroup = ethnicGroup;
+          this.dicomTags.url = url;
         } else {
           this.dicomTags.tagsFound = false;
         }
-        
+
         subject.next(this.dicomTags);
       };
 

@@ -1,3 +1,4 @@
+import { AngularFireStorage } from 'angularfire2/storage';
 import { ItemService } from './../../services/item.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +24,8 @@ export class CaseViewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
-    private location: Location) {
+    private location: Location,
+    private storage: AngularFireStorage) {
   }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class CaseViewComponent implements OnInit {
       if (item) {
         this.item = item;
         this.itemReceived = true;
-        this.initializePatientInfo();
+        // this.initializePatientInfo();
       }
     });
   }
@@ -81,7 +83,7 @@ export class CaseViewComponent implements OnInit {
     };
 
     const request = new XMLHttpRequest();
-    request.open('GET', this.item.imageUrl, true);
+    request.open('GET', this.item.imageIndexes[0], true);
     request.responseType = 'arraybuffer';
     request.onload = onload;
     request.send(null);

@@ -11,11 +11,6 @@
             <li class="collection-item">Sexo del paciente: {{item.patientSex}}</li>
             <li class="collection-item">Fecha de nacimiento: {{item.patientBirthDate}}</li>
             <li class="collection-item">Grupo étnico del paciente: {{item.ethnicGroup}}</li>
-            <!-- <li class="collection-item">
-              <div id="dwv">
-                <div id="tags"></div>
-              </div>
-            </li> -->
           </ul>
           <div class="tab">
             <button class="tablinks" [routerLink]="['/dicom_viewer']" [queryParams]="{dicomUrl: item.imageIndexes[0]}">OI. Enf. Mácula</button>
@@ -26,8 +21,14 @@
           <br>
           <div>
             <span>Has click en los tabs para ver las imágenes en nuestro DICOM viewer</span>
+            <br><br>
             <div>
-              En estos tendrás la opción de...
+              <u>En nuestro DICOM viewer podrás:</u>
+              <ul class="collection black-text">
+                <li class="collection-item">Scroll: Permite cambiar de frame si el DICOM es multi-frame.</li>
+                <li class="collection-item">WindowLevel: Permite cambiar el rango de la escala gris de la imagen.</li>
+                <li class="collection-item">ZoomAndPan: Permite hacer zoom y mover la imagen.</li>
+              </ul>
             </div>
           </div>
         </div>

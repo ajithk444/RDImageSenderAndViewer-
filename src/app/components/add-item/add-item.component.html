@@ -33,7 +33,7 @@
             <input class="file-path validate" type="text" placeholder="Sube uno o más archivos DICOM">
           </div>
         </div>
-        <input type="submit" value="submit" class="btn">
+        <input type="submit" value="Subir" class="btn">
         <div id="checkboxesDiv" class="valign-wrapper" *ngIf="showCheckboxes">
           <br>
           <br>
@@ -48,7 +48,7 @@
           <i class="medium material-icons right" (click)="showCheckboxes = false;" style="cursor: pointer;">close</i>
         </div>        
         <div *ngIf="showLoadingBar">
-            <br> Uploading...
+            <br> Subiendo imágenes...
             <div class="progress">
               <div class="indeterminate"></div>
             </div>
@@ -59,4 +59,3 @@
 </div>
 
 <app-items></app-items>
-<!-- <app-user-detail></app-user-detail> -->

@@ -1,11 +1,17 @@
 <div *ngIf="userReceived">
-  <div *ngIf="isAdmin; then admin_contact else doctor_contact"></div>
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <span class="card-title">Información de contacto con central:</span>
+      <br><br>
+      <h5><u>Número de central de ayuda:</u></h5> 
+      <p>Fijo: 626-2000 - (anexo: #{{anex}})</p> 
+      <p>Celular: 959431364</p> 
+      <br>
+      <h5><u>Enviar correo con consulta:</u></h5> 
+      <p>Correo de ayuda: telemed.rd@pucp.pe</p> 
+      <p>Asunto: Apoyo {{emailSubject}}</p> 
+      <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=telemed.rd@pucp.pe&tf=1" target="_blank"><u>O has click aquí</u></a>
+      <br>
+    </div>
+  </div>
 </div>
-
-<ng-template #admin_contact>
-  <div>Aca se muestra el contacto a la central y guía de trabajo del <strong>adminsitrador</strong></div>
-</ng-template>
-
-<ng-template #doctor_contact>
-  <div>Aca se muestra el contacto a la central y guía de trabajo del <strong>médico</strong></div>
-</ng-template>

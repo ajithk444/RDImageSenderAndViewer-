@@ -26,7 +26,7 @@ export class ItemService {
   dicomTags: Tag = {
     tagsFound: false,
     laterality: '',
-    seriesDescription: ''
+    imageComments: '',
   };
 
   constructor(public afs: AngularFirestore,
@@ -97,16 +97,19 @@ export class ItemService {
         const tags = dicomParser.getDicomElements();
 
         const laterality = String(tags.getFromName('Laterality'));
-        const seriesDescription = String(tags.getFromName('SeriesDescription'));
+        const imageComments = String(tags.getFromName('ImageComments'));
         const patientSex = String(tags.getFromName('PatientSex'));
         const patientBirthDate = String(tags.getFromName('PatientBirthDate').substr(6, 2) + '/'
           + tags.getFromName('PatientBirthDate').substr(4, 2) + '/'
           + tags.getFromName('PatientBirthDate').substr(0, 4));
+        const lossyImageCompression = String(tags.getFromName('LossyImageCompression'));
         const ethnicGroup = String(tags.getFromName('EthnicGroup'));
-        if (laterality != null && laterality !== '' && seriesDescription != null && seriesDescription !== '') {
+        if (laterality != null && laterality !== '' && imageComments != null && imageComments !== ''
+              && lossyImageCompression != null && lossyImageCompression !== '') {
           this.dicomTags.tagsFound = true;
           this.dicomTags.laterality = laterality;
-          this.dicomTags.seriesDescription = seriesDescription;
+          this.dicomTags.imageComments = imageComments;
+          this.dicomTags.lossyImageCompression = lossyImageCompression;
           this.dicomTags.patientSex = patientSex;
           this.dicomTags.patientBirthDate = patientBirthDate;
           this.dicomTags.ethnicGroup = ethnicGroup;

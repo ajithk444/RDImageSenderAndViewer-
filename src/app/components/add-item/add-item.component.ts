@@ -98,55 +98,83 @@ export class AddItemComponent implements OnInit {
 
       for (let index = 0; index < this.filesAttached.length; index++) {
         this.currentFile = this.filesAttached[index];
-        this.itemService.addItemFilesToStorage(this.item, this.user.uid, this.currentFile, index, id).subscribe(tagsValue => {
-          if (tagsValue) {
-            console.log('tagsValue: ', tagsValue);
-            console.log('index: ', index);
-            if (tagsValue.tagsFound) {
-              if (tagsValue.laterality.trim() === 'L' && tagsValue.seriesDescription.trim() === 'Macula') {
-                this.imageIndexes[0] = tagsValue.url;
-                this.item.patientSex = tagsValue.patientSex;
-                this.item.patientBirthDate = tagsValue.patientBirthDate;
-                this.item.ethnicGroup = tagsValue.ethnicGroup;
-                this.checkboxOIEM = true;
-              } else if (tagsValue.laterality.trim() === 'L' && tagsValue.seriesDescription.trim() === 'DiscoOptico') {
-                this.imageIndexes[1] = tagsValue.url;
-                this.checkboxOIED = true;
-              } else if (tagsValue.laterality.trim() === 'R' && tagsValue.seriesDescription.trim() === 'Macula') {
-                this.imageIndexes[2] = tagsValue.url;
-                this.checkboxODEM = true;
-              } else if (tagsValue.laterality.trim() === 'R' && tagsValue.seriesDescription.trim() === 'DiscoOptico') {
-                this.imageIndexes[3] = tagsValue.url;
-                this.checkboxODED = true;
-              }
-            }
-            this.fileFinishedUploadingArray[index] = true;
-            if (this.allFilesFinishedUploading()) {
-              this.showLoadingBar = false;
-              let missingImage = false;
-              console.log('imageIndexes: ', this.imageIndexes);
-              for (let i = 0; i < 4; i++) {
-                if (this.imageIndexes[i] == null) {
-                  console.log('missing! index: ', i);
-                  missingImage = true;
-                  missingImageMessage = missingImageMessage + this.imageMissingMessageArray[i] + ', ';
+        console.log('file type: ', this.currentFile.name.split('.').pop());
+        if (this.currentFile.name.split('.').pop() === 'dcm') {
+          this.itemService.addItemFilesToStorage(this.item, this.user.uid, this.currentFile, index, id).subscribe(tagsValue => {
+            if (tagsValue) {
+              console.log('tagsValue: ', tagsValue);
+              console.log('index: ', index);
+              if (tagsValue.tagsFound && tagsValue.lossyImageCompression === '00') {
+                if (tagsValue.laterality.trim() === 'L' && tagsValue.imageComments.trim() === 'Macula') {
+                  this.imageIndexes[0] = tagsValue.url;
+                  this.item.patientSex = tagsValue.patientSex;
+                  this.item.patientBirthDate = tagsValue.patientBirthDate;
+                  this.item.ethnicGroup = tagsValue.ethnicGroup;
+                  this.checkboxOIEM = true;
+                } else if (tagsValue.laterality.trim() === 'L' && tagsValue.imageComments.trim() === 'DiscoOptico') {
+                  this.imageIndexes[1] = tagsValue.url;
+                  this.checkboxOIED = true;
+                } else if (tagsValue.laterality.trim() === 'R' && tagsValue.imageComments.trim() === 'Macula') {
+                  this.imageIndexes[2] = tagsValue.url;
+                  this.checkboxODEM = true;
+                } else if (tagsValue.laterality.trim() === 'R' && tagsValue.imageComments.trim() === 'DiscoOptico') {
+                  this.imageIndexes[3] = tagsValue.url;
+                  this.checkboxODED = true;
                 }
               }
-              if (!missingImage) {
-                alert('Todo se encontro! :)');
-                this.item.imageIndexes = this.imageIndexes;
-                this.itemService.addItemToFirestore(this.item, this.user.uid, id);
-              } else {
-                alert(missingImageMessage);
+              this.fileFinishedUploadingArray[index] = true;
+              if (this.allFilesFinishedUploading()) {
+                this.showLoadingBar = false;
+                let missingImage = false;
+                console.log('imageIndexes: ', this.imageIndexes);
+                for (let i = 0; i < 4; i++) {
+                  if (this.imageIndexes[i] == null) {
+                    console.log('missing! index: ', i);
+                    missingImage = true;
+                    missingImageMessage = missingImageMessage + this.imageMissingMessageArray[i] + ', ';
+                  }
+                }
+                if (!missingImage) {
+                  alert('Todo se encontro! :)');
+                  this.item.imageIndexes = this.imageIndexes;
+                  this.itemService.addItemToFirestore(this.item, this.user.uid, id);
+                } else {
+                  alert(missingImageMessage);
+                }
+                this.clearItem();
+                this.fileFinishedUploadingArray = [];
+                this.imageIndexes = [];
               }
-              this.clearItem();
-              this.fileFinishedUploadingArray = [];
-              this.imageIndexes = [];
             }
+          });          
+          this.showLoadingBar = true;
+        }  else {
+          
+          this.fileFinishedUploadingArray[index] = true;
+          if (this.allFilesFinishedUploading()) {
+            this.showLoadingBar = false;
+            let missingImage = false;
+            console.log('imageIndexes: ', this.imageIndexes);
+            for (let i = 0; i < 4; i++) {
+              if (this.imageIndexes[i] == null) {
+                console.log('missing! index: ', i);
+                missingImage = true;
+                missingImageMessage = missingImageMessage + this.imageMissingMessageArray[i] + ', ';
+              }
+            }
+            if (!missingImage) {
+              alert('Todo se encontro! :)');
+              this.item.imageIndexes = this.imageIndexes;
+              this.itemService.addItemToFirestore(this.item, this.user.uid, id);
+            } else {
+              alert(missingImageMessage);
+            }
+            this.clearItem();
+            this.fileFinishedUploadingArray = [];
+            this.imageIndexes = [];
           }
-        });
+        }        
       }
-      this.showLoadingBar = true;
     }
   }
 
